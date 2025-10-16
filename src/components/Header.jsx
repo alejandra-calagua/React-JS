@@ -1,4 +1,4 @@
-import NavBar from './Navbar';
+import NavBar from './NavBar';
 import { Link } from 'react-router-dom';
 import {FaUser, FaShoppingBag} from 'react-icons/fa'; 
 import { TbShoppingCartHeart } from "react-icons/tb"; // Icono de carrito con corazón
