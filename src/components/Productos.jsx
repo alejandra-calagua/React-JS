@@ -8,7 +8,7 @@ const Productos = ({ agregarProducto }) => {
     const [cargando, setCargando] = useState(true);
     const [error, setError] = useState(null);
 
-    const URL = 'https://fakestoreapi.com/products';
+    const URL = 'https://691e61e4bb52a1db22bdbccb.mockapi.io/react-v1/productos';
 
     useEffect(() => {
         fetch(URL)
