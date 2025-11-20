@@ -2,11 +2,15 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Tarjeta from './Tarjeta';
 
-const Productos = ({ agregarProducto }) => {
 
-    const [productos, setProductos] = useState([]);
-    const [cargando, setCargando] = useState(true);
-    const [error, setError] = useState(null);
+const Productos = () => {
+// Usamos los contextos 
+  const { productos, cargando, error } = useProductosContext();
+// const Productos = ({ agregarProducto }) => {
+
+    // const [productos, setProductos] = useState([]);
+    // const [cargando, setCargando] = useState(true);
+    // const [error, setError] = useState(null);
 
     const URL = 'https://691e61e4bb52a1db22bdbccb.mockapi.io/react-v1/productos';
 

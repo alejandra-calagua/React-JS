@@ -1,0 +1,49 @@
+.container {
+  display: flex;
+  gap: 10px;
+  max-width: 900px;
+}
+.imagen {
+  height: 100px;
+  width: 100px;
+}
+
+.panel {
+  flex: 1;
+}
+
+.cabecera {
+  display: flex;
+  justify-content: space-between;
+}
+
+.boton {
+  background-color: transparent;
+  border: none;
+  outline: none;
+  font-weight: 600;
+}
+
+.botonAgregar {
+  background-color: transparent;
+  border: none;
+  outline: none;
+  font-weight: 600;
+  font-size: 18px;
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  gap: 6px;
+  color: indianred;
+}
+
+.productoItem {
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid gray;
+  cursor: pointer;
+  background-color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
