@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuthContext } from '../context/AuthContext';
-// No se pide para la pre-entrega
+
 const Login = () => {
   const [usuario, setUsuario] = useState('');
   const [contrasenia, setContrasenia] = useState('');

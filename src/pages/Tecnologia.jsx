@@ -1,6 +1,6 @@
 import React from 'react';
-import ProductosFiltrados from './ProductosFiltrados';
-import TarjetaDetalle from './TarjetaDetalle'; 
+import ProductosFiltrados from '../components/ProductosFiltrados';
+import TarjetaDetalle from './../components/TarjetaDetalle';
 
 const Tecnologia = () => {
     // 💡 Usamos el hook, pasando la categoría deseada: "electronics"

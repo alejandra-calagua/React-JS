@@ -1,6 +1,7 @@
 import NavBar from './NavBar';
 import { Link } from 'react-router-dom';
 import {FaUser, FaShoppingBag} from 'react-icons/fa'; 
+//importamos iconos de react icons-fontawesome
 import { TbShoppingCartHeart } from "react-icons/tb"; // Icono de carrito con corazón
 import { RiUserHeartLine } from "react-icons/ri"
 

@@ -1,9 +1,9 @@
 import React, { useMemo } from 'react';
-import { FaTrashAlt } from 'react-icons/fa'; // Icono para eliminar, si usas React Icons
+import { FaTrashAlt } from 'react-icons/fa'; // Icono para eliminar, React Icons
 
 
 const Carrito = ({ productosEnCarrito, productosEliminados }) => {
-  
+  const eliminarIcono = () => <FaTrashAlt className="me-1" />;
   
   const total = productosEnCarrito.reduce((suma, producto) => suma + producto.price, 0);
   
@@ -51,7 +51,7 @@ const Carrito = ({ productosEnCarrito, productosEliminados }) => {
                     className="btn btn-outline-danger btn-sm" 
                     onClick={() => productosEliminados(indice)}
                   >
-                    <FaTrashAlt className="me-1" /> Eliminar
+                    {eliminarIcono()} Eliminar
                   </button>
                 </div>
               ))}

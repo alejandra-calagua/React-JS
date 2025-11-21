@@ -1,31 +1,16 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Tarjeta from './Tarjeta';
+import { useProductosContext } from '../context/ProductosContext';
 
-
-const Productos = () => {
+// const Productos = () => {
 // Usamos los contextos 
-  const { productos, cargando, error } = useProductosContext();
-// const Productos = ({ agregarProducto }) => {
 
-    // const [productos, setProductos] = useState([]);
-    // const [cargando, setCargando] = useState(true);
-    // const [error, setError] = useState(null);
+const Productos = ({ agregarProducto }) => {
+      const { productos, cargando, error  } = useProductosContext();
 
-    const URL = 'https://691e61e4bb52a1db22bdbccb.mockapi.io/react-v1/productos';
 
-    useEffect(() => {
-        fetch(URL)
-            .then((respuesta) => respuesta.json())
-            .then((datos) => {
-                setProductos(datos);
-                setCargando(false);
-            })
-            .catch((error) => {
-                setError('Error cuando se cargan productos');
-                setCargando(false);
-            })
-    }, []);
+
 
     if (cargando) return '...Cargando productos...';
     if (error) return error;

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import TarjetaDetalle from "./TarjetaDetalle";
+import TarjetaDetalle from "../components/TarjetaDetalle";
 
 
 const ProductoDetalle = () => {
