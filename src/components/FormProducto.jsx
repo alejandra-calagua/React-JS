@@ -11,6 +11,9 @@ const FormProducto = ({ productoInicial = {}, modo = "agregar", onCerrar }) => {
   //icono "cerrar"
   const iconoCerrar = () => <IoMdCloseCircleOutline size={28} />;
 
+  //manejo de errores
+  const [errores, setErrores] = useState({});
+
   // Manejar cambios en el campo de categorias(nombres en español)
   const MAPEO_CATEGORIAS = {
     "men's clothing": "Ropa de Hombre",
@@ -24,19 +27,47 @@ const obtenerNombreCategoria = (categoriaApi) => {
            categoriaApi.charAt(0).toUpperCase() + categoriaApi.slice(1);
 };
 
+//validacion de formulario
+const validarFormulario = () => {
+    const nuevosErrores = {}; 
+    if (!producto.title || producto.title.trim() === "") {
+      nuevosErrores.title = "El nombre del producto es obligatorio.";
+    }
+    if (!producto.price || isNaN(producto.price) || Number(producto.price) <= 0) {
+      nuevosErrores.price = "El precio debe ser un número válido mayor o igual a 0.";
+    }
+    if (!producto.category || producto.category.trim() === "") {
+      nuevosErrores.category = "La categoría es obligatoria.";
+    }
+    if (!producto.description || producto.description.trim() === ""|| producto.description.length < 10) {
+      nuevosErrores.description = "La descripción es obligatoria y debe tener al menos 10 caracteres.";
+    }
+    setErrores(nuevosErrores);
+    return Object.keys(nuevosErrores).length === 0;
+  };
+
+  // Manejar cambios en los campos del formulario
   const manejarChange = (evento) => {
     const { name, value } = evento.target;
     setProducto({ ...producto, [name]: value });
+    if (errores[name]) {
+      const { [name]: removedE, ...restOfErrors } = errores;
+      setErrores(restOfErrors);
+    }
   };
 
+  // Manejar el envío del formulario
   const manejarSubmit = async (evento) => {
     evento.preventDefault();
+    if (validarFormulario()) {
     if (modo === "agregar") {
       await agregarProducto(producto);
     } else {
       await editarProducto(producto);
     }
+    setErrores({});
     onCerrar();
+    }
   };
 
   return (
@@ -77,8 +108,9 @@ const obtenerNombreCategoria = (categoriaApi) => {
                   placeholder="Ingrese el nombre del producto"
                   value={producto.title || ""}
                   onChange={manejarChange}
-                  required
+                  
                 />
+                {errores.title && <p style={{ color: "red" }}>{errores.title}</p>}
               </div>
               {/* campo categoria */}
               <div className={styles.colSpan2}>
@@ -91,7 +123,7 @@ const obtenerNombreCategoria = (categoriaApi) => {
                   className={styles.formInputBase}
                   value={producto.category || ""}
                   onChange={manejarChange}
-                  required
+                  
                 >
                   <option value="" disabled>Seleccione una categoría</option>
                   {categoriasUnicas.map((categoria) => (
@@ -100,6 +132,7 @@ const obtenerNombreCategoria = (categoriaApi) => {
                     </option>
                   ))}
                 </select>
+                {errores.category && <p style={{ color: "red" }}>{errores.category}</p>}
               </div>
 
               {/* Campo Precio */}
@@ -115,10 +148,11 @@ const obtenerNombreCategoria = (categoriaApi) => {
                   placeholder="$0.00"
                   value={producto.price || ""}
                   onChange={manejarChange}
-                  required
+                  
                   min="0"
                   step="any"
                 />
+                {errores.price && <p style={{ color: "red" }}>{errores.price}</p>}
               </div>
               
               {/* Campo URL de Imagen */}
@@ -149,8 +183,9 @@ const obtenerNombreCategoria = (categoriaApi) => {
                   placeholder="Escriba la descripción del producto aquí"
                   value={producto.description || ""}
                   onChange={manejarChange}
-                  required
+                  
                 ></textarea>
+                {errores.description && <p style={{ color: "red" }}>{errores.description}</p>}
               </div>
             </div>
             {/* Botones de Accion */}

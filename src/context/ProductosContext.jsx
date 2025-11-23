@@ -56,6 +56,7 @@ export const ProductosProvider = ({ children }) => {
       });
       const nuevoProducto = await respuesta.json();
       console.log("Producto agregado: ", nuevoProducto);
+      alert("Producto agregado con éxito!");
       
       if (!respuesta.ok) 
         throw new Error(`Error HTTP: ${respuesta.status}`);
@@ -67,6 +68,7 @@ export const ProductosProvider = ({ children }) => {
       console.error("Error al agregar:", error);
       const mensajeError = "Hubo un problema al agregar el producto.";
       setError(mensajeError);
+      alert(mensajeError);
     }
   };
 
@@ -87,11 +89,14 @@ export const ProductosProvider = ({ children }) => {
       setProductos(productos.map(p => 
         p.id === productoActualizado.id ? productoActualizado : p
       ));
+      console.log("Producto editado: ", productoActualizado);
+      alert("Producto editado con éxito!");
 
     } catch (error) {
       console.error("Error al editar:", error);
       const mensajeError = "Hubo un problema al editar el producto.";
       setError(mensajeError);
+      alert(mensajeError);
     }
   };
 
@@ -113,11 +118,14 @@ export const ProductosProvider = ({ children }) => {
 
         // Filtra y crea un nuevo array sin el producto eliminado
         setProductos(productos.filter(p => p.id !== id));
+        alert("Producto eliminado con éxito!");
+        console.log("Producto eliminado, ID:", id);
       } 
       catch (error) {
       console.error(error.message);
       const mensajeError = "Hubo un problema al eliminar el producto.";
       setError(mensajeError);
+      alert(mensajeError);
       }
     }
   };
