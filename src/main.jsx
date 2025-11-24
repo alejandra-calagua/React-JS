@@ -6,15 +6,18 @@ import "./index.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { AuthProvider } from "./context/AuthContext";
 import { ProductosProvider } from "./context/ProductosContext";
+import { BusquedaProvider } from "./context/BusquedaContext";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <BrowserRouter>
-      <AuthProvider>
-        <ProductosProvider>
-          <App />
-        </ProductosProvider>
-      </AuthProvider>
+      <BusquedaProvider>
+        <AuthProvider>
+          <ProductosProvider>
+            <App />
+          </ProductosProvider>
+        </AuthProvider>
+      </BusquedaProvider>
     </BrowserRouter>
-  </StrictMode>
+  </StrictMode >
 );

@@ -60,10 +60,14 @@ const validarFormulario = () => {
   const manejarSubmit = async (evento) => {
     evento.preventDefault();
     if (validarFormulario()) {
+      const productoConPrecio={
+      ...producto,
+      price: Number(producto.price)
+    };
     if (modo === "agregar") {
-      await agregarProducto(producto);
+      await agregarProducto(productoConPrecio);
     } else {
-      await editarProducto(producto);
+      await editarProducto(productoConPrecio);
     }
     setErrores({});
     onCerrar();

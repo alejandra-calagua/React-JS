@@ -12,6 +12,8 @@ import Tecnologia from './pages/Tecnologia';
 import Login from './pages/login';
 import RutaProtegida from './components/RutaProtegida';
 import Admin from './pages/Admin'; 
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 
 
@@ -33,7 +35,15 @@ function App() {
         <Route path='/admin' element={<RutaProtegida><Admin/></RutaProtegida>}/>
 
       </Routes> 
-      <Footer/>     
+      <Footer/>    
+      <ToastContainer
+        position="top-center"
+        autoClose={3000}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+      /> 
     </>
   )
 }
