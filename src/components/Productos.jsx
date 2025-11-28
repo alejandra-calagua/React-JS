@@ -1,6 +1,7 @@
 import Tarjeta from './Tarjeta';
 import { useProductosContext } from '../context/ProductosContext';
-import { useBusqueda } from '../context/BusquedaContext';//*
+import { useBusqueda } from '../context/BusquedaContext';
+import { useState, useEffect } from 'react';
 
 
 const Productos = ({ agregarProducto }) => {
@@ -11,9 +12,30 @@ const Productos = ({ agregarProducto }) => {
     if (cargando) return '...Cargando productos...';
     if (error) return error;
 
-    const productosFiltrados = productos.filter((producto) => //*
+//*filtrado de productos según búsqueda
+const productosFiltrados = productos.filter((producto) => //*
         producto.title.toLowerCase().includes(busqueda.toLowerCase())
     );
+
+//* paginado 
+    const productosPorPagina = 8;
+    const [paginaActual, setPaginaActual] = useState(1);
+
+//reseteo de página al cambiar la búsqueda
+    useEffect(() => {
+        setPaginaActual(1);
+    }, [busqueda]);
+
+    const indiceUltimoProducto = paginaActual * productosPorPagina;
+    const indicePrimerProducto = indiceUltimoProducto - productosPorPagina;
+    const productosPaginados = productosFiltrados.slice(indicePrimerProducto, indiceUltimoProducto);
+
+//* Función para cambiar de página
+const totalPaginas = Math.ceil(productosFiltrados.length / productosPorPagina);
+const cambiarPagina = (numeroPagina) => 
+    setPaginaActual(numeroPagina);
+
+
 
     return (
 
@@ -21,12 +43,11 @@ const Productos = ({ agregarProducto }) => {
             <h2 className="mb-4 text-center">Catálogo de Productos</h2>
 
 
-            {/*Lista filtrada de productos */}
-            
+            {/*Lista filtrada de productos */}            
 
             {productosFiltrados.length > 0 ? (
                 <div className="row row-cols-1 row-cols-sm-2 row-cols-lg-4 g-4">
-                {productosFiltrados.map((producto) => (
+                {productosPaginados.map((producto) => (
 
                     < div key={producto.id} className="col" >
                         <Tarjeta
@@ -41,6 +62,18 @@ const Productos = ({ agregarProducto }) => {
                 <p class="alert alert-warning">Disculpe, no hay productos que coincidan con la búsqueda.</p>
                 </div>
             )}
+            {/* Paginación */}
+            <div className="d-flex justify-content-center mt-4">
+            {Array.from({ length: totalPaginas }, (_, index) => (
+                <button
+                key={index + 1}
+                className={`btn btn-sm mx-1 ${paginaActual === index + 1 ? 'btn-primary' : 'btn-outline-primary'}`}
+                onClick={() => cambiarPagina(index + 1)}
+                >
+                {index + 1}
+                </button>
+            ))}
+            </div>
         </div>
         
     );
