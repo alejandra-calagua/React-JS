@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import Carrito from './components/Carrito';
 import Header from './components/Header';
 import Inicio from './pages/Inicio';
@@ -14,6 +13,7 @@ import RutaProtegida from './components/RutaProtegida';
 import Admin from './pages/Admin'; 
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import FacturaDeCompra from './pages/FacturaDeCompra';
 
 
 
@@ -21,7 +21,9 @@ function App() {
   
     return (
     <>
+    <div style={{paddingTop: '80px'}}>
       <Header/>
+      </div>
 
         <Routes> 
         <Route path='/' element={<Inicio />}/> 
@@ -33,6 +35,7 @@ function App() {
         <Route path='/joyas' element={<Joyas/>}/>
         <Route path='/login' element={ <Login/> }/>
         <Route path='/admin' element={<RutaProtegida><Admin/></RutaProtegida>}/>
+        <Route path='/factura' element={<RutaProtegida><FacturaDeCompra/></RutaProtegida>}/>
 
       </Routes> 
       <Footer/>    

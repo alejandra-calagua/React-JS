@@ -1,16 +1,17 @@
 import Tarjeta from './Tarjeta';
 import { useProductosContext } from '../context/ProductosContext';
 import { useBusqueda } from '../context/BusquedaContext';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext, use } from 'react';
+import {CarritoContext} from '../context/CarritoContext';
 
 
-const Productos = ({ agregarProducto }) => {
+const Productos = () => {
     const { productos, cargando, error } = useProductosContext();
     const { busqueda } = useBusqueda();//*
+    const { agregarAlCarrito } = useContext(CarritoContext);
+    const [cantidad] = useState(1);
+    const [agregarId, setAgregarId] = useState(null);
 
-
-    if (cargando) return '...Cargando productos...';
-    if (error) return error;
 
 //*filtrado de productos según búsqueda
 const productosFiltrados = productos.filter((producto) => //*
@@ -25,6 +26,19 @@ const productosFiltrados = productos.filter((producto) => //*
     useEffect(() => {
         setPaginaActual(1);
     }, [busqueda]);
+
+// Handler de interaccion para agregar producto
+    const handleAgregarAlCarrito = (producto) => {
+        for (let i = 0; i < cantidad; i++) {
+            agregarAlCarrito(producto);
+        }
+        setAgregarId(producto.id);
+        setTimeout(() => 
+            setAgregarId(null), 2000); 
+    }
+
+    if (cargando) return '...Cargando productos...';
+    if (error) return error;
 
     const indiceUltimoProducto = paginaActual * productosPorPagina;
     const indicePrimerProducto = indiceUltimoProducto - productosPorPagina;
@@ -52,7 +66,8 @@ const cambiarPagina = (numeroPagina) =>
                     < div key={producto.id} className="col" >
                         <Tarjeta
                             producto={producto}
-                            agregarProducto={agregarProducto}
+                            agregado={agregarId === producto.id}
+                            onAgregar={() => handleAgregarAlCarrito(producto)}
                         />
                     </div>
                 ))}

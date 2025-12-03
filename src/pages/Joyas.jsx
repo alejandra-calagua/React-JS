@@ -1,6 +1,37 @@
-import React from 'react';
 import ProductosFiltrados from '../components/ProductosFiltrados';
 import TarjetaDetalle from './../components/TarjetaDetalle';
+import {useState, useContext } from 'react';
+import { CarritoContext } from '../context/CarritoContext';
+
+
+//componente de envoltorio para un producto individual
+const TarjetaJoyasWrapper = ({producto}) => {
+    //hooks necesarios 
+    const [cantidad] = useState(1);
+    const [agregado, setAgregado] = useState(false);
+    const { agregarAlCarrito } = useContext(CarritoContext);
+   
+
+    //handlers de interaccion
+    const handleAgregarAlCarrito = () => {
+        for (let i = 0; i < cantidad; i++) {
+            agregarAlCarrito(producto);
+        }
+        setAgregado(true);
+        setTimeout(() => 
+            setAgregado(false), 2000);//mensaje de agregado por 2 segundos
+    };
+
+    return (
+        <TarjetaDetalle 
+            producto={producto}
+            agregado={agregado}
+            onAgregar={handleAgregarAlCarrito}
+            mostrarVerCarrito={false}
+        />
+    );
+};
+
 
 const Joyas = () => {
     // 💡 Usamos el hook, pasando la categoría deseada: "Joyas"
@@ -18,7 +49,7 @@ const Joyas = () => {
                 {productos.map((producto) => (
                     <div key={producto.id} className="col">
                         {/* Usamos TarjetaDetalle para el renderizado */}
-                        <TarjetaDetalle 
+                        <TarjetaJoyasWrapper 
                             producto={producto} 
                         />
                     </div>

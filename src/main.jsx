@@ -7,17 +7,20 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { AuthProvider } from "./context/AuthContext";
 import { ProductosProvider } from "./context/ProductosContext";
 import { BusquedaProvider } from "./context/BusquedaContext";
+import { CarritoProvider } from "./context/CarritoContext";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <BrowserRouter>
-      <BusquedaProvider>
-        <AuthProvider>
-          <ProductosProvider>
-            <App />
-          </ProductosProvider>
-        </AuthProvider>
-      </BusquedaProvider>
+      <AuthProvider>
+        <ProductosProvider>
+          <BusquedaProvider>
+            <CarritoProvider>
+              <App />
+            </CarritoProvider>
+          </BusquedaProvider>
+        </ProductosProvider>
+      </AuthProvider>
     </BrowserRouter>
   </StrictMode >
 );

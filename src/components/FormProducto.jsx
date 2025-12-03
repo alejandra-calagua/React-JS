@@ -5,6 +5,7 @@ import { IoMdCloseCircleOutline } from "react-icons/io";
 
 
 const FormProducto = ({ productoInicial = {}, modo = "agregar", onCerrar }) => {
+  const DEFAULT_IMAGE_URL = "https://elements-resized.envatousercontent.com/elements-cover-images/8105a84f-73a2-4940-8d7d-b7e556c426cb?w=433&cf_fit=scale-down&q=85&format=auto&s=18f446da29483e2fd0f3cbe2fba6a98fcdc3b3e99d018faa0b299e4e7191834d"
 
   const [producto, setProducto] = useState(productoInicial);
   const { agregarProducto, editarProducto, categoriasUnicas } = useProductosContext();
@@ -30,6 +31,7 @@ const obtenerNombreCategoria = (categoriaApi) => {
 //validacion de formulario
 const validarFormulario = () => {
     const nuevosErrores = {}; 
+    
     if (!producto.title || producto.title.trim() === "") {
       nuevosErrores.title = "El nombre del producto es obligatorio.";
     }
@@ -62,6 +64,7 @@ const validarFormulario = () => {
     if (validarFormulario()) {
       const productoConPrecio={
       ...producto,
+      image: !producto.image || producto.image.trim() === "" ? DEFAULT_IMAGE_URL : producto.image,
       price: Number(producto.price)
     };
     if (modo === "agregar") {
