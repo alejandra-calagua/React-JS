@@ -8,7 +8,7 @@ import Contacto from './components/Contacto';
 import Joyas from './pages/Joyas';
 import Footer from './components/Footer';
 import Tecnologia from './pages/Tecnologia';
-import Login from './pages/login';
+import Login from './pages/Login';
 import RutaProtegida from './components/RutaProtegida';
 import Admin from './pages/Admin'; 
 import { ToastContainer } from "react-toastify";
